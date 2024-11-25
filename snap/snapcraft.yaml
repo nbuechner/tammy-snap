@@ -1,0 +1,59 @@
+name: tammy
+base: core24
+adopt-info: main
+summary: A fast and secure Matrix messenger
+description: |
+              Tammy is a fast and secure messenger built on the decentralized Matrix protocol.
+              It emphasizes user privacy through end-to-end encryption and minimal data retention.
+              The intuitive interface offers a modern look and includes explanatory guides within the app.
+              Tammy delivers a native app experience across various platforms. It's customizable, allowing developers to modify it to their requirements.
+grade: stable
+confinement: strict
+
+platforms:
+  amd64:
+    build-on: amd64
+    build-for: amd64
+
+slots:
+   dbus-tammy:
+      interface: dbus
+      bus: session
+      name: de.connect2x.trixnity.messenger
+
+apps:
+  tammy:
+    command: bin/Tammy
+    plugs: [home, x11, desktop, desktop-legacy, network, network-manager, audio-playback, audio-record, wayland, unity7]
+    slots: [ dbus-tammy ]
+    extensions: [ gnome ]
+    environment:
+       _JAVA_OPTIONS: "-Duser.home=$SNAP_USER_COMMON"
+
+parts:
+ main:
+    source: .
+    plugin: dump
+    override-build: |
+      version=$(curl -s "https://gitlab.com/connect2x/tammy/-/releases.atom" | xmllint --xpath "string(//*[local-name()='entry'][1]/*[local-name()='title'])" -)
+      craftctl set version=$version
+      URL="https://gitlab.com/api/v4/projects/61851918/packages/generic/Tammy-Linux-x64.zip/${version}/Tammy-Linux-x64-${version}.zip"
+      wget -q -O tammy.zip $URL
+      rm -Rf build
+      mkdir build
+      cd build
+      unzip ../tammy.zip
+      cp -rf Tammy/*  $SNAPCRAFT_PART_INSTALL/
+      cd ..
+      rm -Rf build
+      rm -f tammy.zip
+
+    build-packages:
+      - wget
+      - libxml2-utils
+      - unzip
+
+lint:
+  ignore:
+    - library
+

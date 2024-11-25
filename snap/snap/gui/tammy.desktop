@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Tammy
+Comment=A fast and secure Matrix messenger.
+Exec=tammy
+Icon=${SNAP}/meta/gui/tammy.png
+Terminal=false
+Type=Application
+Categories=Unknown
+MimeType=
