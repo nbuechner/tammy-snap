@@ -24,7 +24,7 @@ slots:
 apps:
   tammy:
     command: bin/Tammy
-    plugs: [home, x11, desktop, desktop-legacy, network, network-manager, audio-playback, audio-record, wayland, unity7]
+    plugs: [home, x11, desktop, desktop-legacy, network, audio-playback, audio-record, wayland, unity7]
     slots: [ dbus-tammy ]
     extensions: [ gnome ]
     environment:
