@@ -15,17 +15,10 @@ platforms:
     build-on: amd64
     build-for: amd64
 
-slots:
-   dbus-tammy:
-      interface: dbus
-      bus: session
-      name: de.connect2x.trixnity.messenger
-
 apps:
   tammy:
     command: bin/Tammy
     plugs: [home, x11, desktop, desktop-legacy, network, audio-playback, audio-record, wayland, unity7]
-    slots: [ dbus-tammy ]
     extensions: [ gnome ]
     environment:
        _JAVA_OPTIONS: "-Duser.home=$SNAP_USER_COMMON"
