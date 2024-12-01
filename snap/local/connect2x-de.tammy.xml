@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+    <mime-type type="x-scheme-handler/de.connect2x.tammy">
+        <comment>Handler for de.connect2x.tammy URLs</comment>
+        <generic-icon name="applications-internet"/>
+        <glob pattern="*.de.connect2x.tammy"/>
+    </mime-type>
+</mime-info>

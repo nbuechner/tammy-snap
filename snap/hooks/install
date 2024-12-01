@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+# Register MIME types
+update-mime-database $SNAP/usr/share/mime
+update-desktop-database $SNAP/usr/share/applications

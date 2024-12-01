@@ -18,16 +18,30 @@ platforms:
 apps:
   tammy:
     command: bin/Tammy
-    plugs: [home, x11, desktop, desktop-legacy, network, audio-playback, audio-record, wayland, unity7]
+    plugs:
+      - home
+      - x11
+      - desktop
+      - desktop-legacy
+      - network
+      - network-bind
+      - audio-playback
+      - audio-record
+      - wayland
+      - unity7
     extensions: [ gnome ]
     environment:
        _JAVA_OPTIONS: "-Duser.home=$SNAP_USER_COMMON"
+       GTK_USE_PORTAL: "1"
 
 parts:
  main:
     source: .
     plugin: dump
     override-build: |
+      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/share/mime/packages
+      cd $SNAPCRAFT_PART_SRC
+      cp -r local/connect2x-de.tammy.xml $SNAPCRAFT_PART_INSTALL/usr/share/mime/packages
       version=$(curl -s "https://gitlab.com/connect2x/tammy/-/releases.atom" | xmllint --xpath "string(//*[local-name()='entry'][1]/*[local-name()='title'])" -)
       craftctl set version=$version
       URL="https://gitlab.com/api/v4/projects/61851918/packages/generic/Tammy-Linux-x64.zip/${version}/Tammy-Linux-x64-${version}.zip"
@@ -46,7 +60,21 @@ parts:
       - libxml2-utils
       - unzip
 
+    stage-packages:
+      - shared-mime-info
+      - desktop-file-utils
+      - xdg-utils
+
 lint:
   ignore:
     - library
+
+layout:
+  /usr/share/mime:
+    bind: $SNAP/usr/share/mime
+
+hooks:
+  install:
+    plugs: [desktop, desktop-legacy]
+
 

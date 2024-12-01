@@ -1,9 +1,9 @@
 [Desktop Entry]
 Name=Tammy
 Comment=A fast and secure Matrix messenger.
-Exec=tammy
+Exec=tammy %u
 Icon=${SNAP}/meta/gui/tammy.png
 Terminal=false
 Type=Application
-Categories=Unknown
-MimeType=
+Categories=Network;InstantMessaging;Chat;
+MimeType=x-scheme-handler/de.connect2x.tammy;
