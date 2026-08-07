@@ -1,4 +1,5 @@
 name: tammy
+title: Tammy
 base: core24
 adopt-info: main
 summary: A fast and secure Matrix messenger
@@ -7,6 +8,11 @@ description: |
               It emphasizes user privacy through end-to-end encryption and minimal data retention.
               The intuitive interface offers a modern look and includes explanatory guides within the app.
               Tammy delivers a native app experience across various platforms. It's customizable, allowing developers to modify it to their requirements.
+contact: snaps@buechner.me
+issues: https://gitlab.com/connect2x/tammy/-/issues
+source-code: https://gitlab.com/connect2x/tammy
+website: https://tammy.connect2x.de
+license: AGPL-3.0-only
 grade: stable
 confinement: strict
 
@@ -41,7 +47,7 @@ parts:
     override-build: |
       mkdir -p $SNAPCRAFT_PART_INSTALL/usr/share/mime/packages
       cd $SNAPCRAFT_PART_SRC
-      cp -r local/connect2x-de.tammy.xml $SNAPCRAFT_PART_INSTALL/usr/share/mime/packages
+      cp -r snap/local/connect2x-de.tammy.xml $SNAPCRAFT_PART_INSTALL/usr/share/mime/packages
       version=$(curl -s "https://gitlab.com/connect2x/tammy/-/releases.atom" | xmllint --xpath "string(//*[local-name()='entry'][1]/*[local-name()='title'])" -)
       craftctl set version=$version
       URL="https://gitlab.com/api/v4/projects/61851918/packages/generic/Tammy-Linux-x64.zip/${version}/Tammy-Linux-x64-${version}.zip"
@@ -51,6 +57,7 @@ parts:
       cd build
       unzip ../tammy.zip
       cp -rf Tammy/*  $SNAPCRAFT_PART_INSTALL/
+      chmod +x $SNAPCRAFT_PART_INSTALL/bin/Tammy
       cd ..
       rm -Rf build
       rm -f tammy.zip
