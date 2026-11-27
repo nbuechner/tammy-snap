@@ -1,6 +1,6 @@
 name: tammy
 title: Tammy
-base: core24
+base: core26
 adopt-info: main
 summary: A fast and secure Matrix messenger
 description: |
